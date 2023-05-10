@@ -1,6 +1,8 @@
 name: "Staging: Build and push docker container"
 
 on:
+  repository_dispatch:
+    types: [common-voice-build-image-stage]
   push:
     branches:
       - dev/ilt
@@ -11,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        with:
+          submodules: recursive  # Checkout submodules
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
